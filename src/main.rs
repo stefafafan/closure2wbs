@@ -1,5 +1,21 @@
 use std::fs;
 
+use clap::Parser;
+
+// XXX: Instead of using files, support reading from stdin and writing to stdout
+const DEFAULT_FILENAME: &str = "closures.json";
+const DEFAULT_OUTPUT_FILENAME: &str = "closures_wbs.puml";
+
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    #[arg(short, long, default_value_t = DEFAULT_FILENAME.to_string())]
+    filename: String,
+
+    #[arg(short, long, default_value_t = DEFAULT_OUTPUT_FILENAME.to_string())]
+    output: String,
+}
+
 #[derive(serde::Deserialize)]
 struct ClosureRecord {
     ancestor: String,
@@ -39,7 +55,7 @@ fn retrieve_root_node(json: Vec<serde_json::Value>) -> String {
         }
     }
 
-    "".to_string()
+    panic!("Root node not found")
 }
 
 fn closure_children_to_wbs_string(
@@ -80,10 +96,11 @@ fn json_to_plantuml_wbs(json: Vec<serde_json::Value>) -> String {
 }
 
 fn main() {
-    let json = fs::read_to_string("closures.json").expect("Unable to read file");
+    let args = Args::parse();
+    let json = fs::read_to_string(args.filename).expect("Unable to read file");
     let deserialized: Vec<serde_json::Value> =
         serde_json::from_str(&json).expect("Unable to deserialize");
     let plantuml = json_to_plantuml_wbs(deserialized);
 
-    fs::write("closures_wbs.puml", plantuml).expect("Unable to write file");
+    fs::write(args.output, plantuml).expect("Unable to write file");
 }
