@@ -1,5 +1,16 @@
 use std::fs;
 
+use clap::Parser;
+
+const DEFAULT_FILENAME: &str = "closures.json";
+
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    #[arg(short, long, default_value_t = DEFAULT_FILENAME.to_string())]
+    filename: String,
+}
+
 #[derive(serde::Deserialize)]
 struct ClosureRecord {
     ancestor: String,
@@ -80,7 +91,8 @@ fn json_to_plantuml_wbs(json: Vec<serde_json::Value>) -> String {
 }
 
 fn main() {
-    let json = fs::read_to_string("closures.json").expect("Unable to read file");
+    let args = Args::parse();
+    let json = fs::read_to_string(args.filename).expect("Unable to read file");
     let deserialized: Vec<serde_json::Value> =
         serde_json::from_str(&json).expect("Unable to deserialize");
     let plantuml = json_to_plantuml_wbs(deserialized);
