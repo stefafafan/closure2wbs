@@ -55,7 +55,7 @@ fn retrieve_root_node(json: Vec<serde_json::Value>) -> String {
         }
     }
 
-    "".to_string()
+    panic!("Root node not found")
 }
 
 fn closure_children_to_wbs_string(
