@@ -2,6 +2,7 @@ use std::fs;
 
 use clap::Parser;
 
+// XXX: Instead of using files, support reading from stdin and writing to stdout
 const DEFAULT_FILENAME: &str = "closures.json";
 const DEFAULT_OUTPUT_FILENAME: &str = "closures_wbs.puml";
 
