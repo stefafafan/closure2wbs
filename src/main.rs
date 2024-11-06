@@ -3,12 +3,16 @@ use std::fs;
 use clap::Parser;
 
 const DEFAULT_FILENAME: &str = "closures.json";
+const DEFAULT_OUTPUT_FILENAME: &str = "closures_wbs.puml";
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
     #[arg(short, long, default_value_t = DEFAULT_FILENAME.to_string())]
     filename: String,
+
+    #[arg(short, long, default_value_t = DEFAULT_OUTPUT_FILENAME.to_string())]
+    output: String,
 }
 
 #[derive(serde::Deserialize)]
@@ -97,5 +101,5 @@ fn main() {
         serde_json::from_str(&json).expect("Unable to deserialize");
     let plantuml = json_to_plantuml_wbs(deserialized);
 
-    fs::write("closures_wbs.puml", plantuml).expect("Unable to write file");
+    fs::write(args.output, plantuml).expect("Unable to write file");
 }
