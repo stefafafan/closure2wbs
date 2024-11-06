@@ -42,8 +42,13 @@ fn retrieve_root_node(json: Vec<serde_json::Value>) -> String {
     "".to_string()
 }
 
-fn print_children_nodes(json: Vec<serde_json::Value>, current: String, level: i32) {
-    println!("{} {}", "*".repeat(level as usize), current);
+fn closure_children_to_wbs_string(
+    json: Vec<serde_json::Value>,
+    current: String,
+    level: i32,
+) -> String {
+    let mut tempstr;
+    tempstr = format!("{} {}\n", "*".repeat(level as usize), current);
 
     let mut children: Vec<String> = Vec::new();
 
@@ -56,24 +61,20 @@ fn print_children_nodes(json: Vec<serde_json::Value>, current: String, level: i3
     }
 
     for child in children {
-        print_children_nodes(json.clone(), child, level + 1);
+        tempstr.push_str(&closure_children_to_wbs_string(
+            json.clone(),
+            child,
+            level + 1,
+        ));
     }
+
+    tempstr.to_string()
 }
 
 fn json_to_plantuml_wbs(json: Vec<serde_json::Value>) -> String {
-    // TODO: When using wbs, the contents should be output in a way using *.
-    // Like this:
-    // @startwbs
-    // * A
-    // ** B
     let mut plantuml = String::from("@startwbs\n");
-
     let root_node = retrieve_root_node(json.clone());
-
-    println!("Root node: {}", root_node);
-    plantuml.push_str(&format!("* {}\n", root_node));
-    print_children_nodes(json.clone(), root_node, 1);
-
+    plantuml.push_str(&closure_children_to_wbs_string(json.clone(), root_node, 1));
     plantuml.push_str("@endwbs\n");
     plantuml
 }
