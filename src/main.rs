@@ -42,6 +42,24 @@ fn retrieve_root_node(json: Vec<serde_json::Value>) -> String {
     "".to_string()
 }
 
+fn print_children_nodes(json: Vec<serde_json::Value>, current: String, level: i32) {
+    println!("{} {}", "*".repeat(level as usize), current);
+
+    let mut children: Vec<String> = Vec::new();
+
+    for record in json.clone() {
+        let closure_record: ClosureRecord =
+            serde_json::from_value(record).expect("Unable to deserialize");
+        if closure_record.ancestor == current && closure_record.descendant != current {
+            children.push(closure_record.descendant);
+        }
+    }
+
+    for child in children {
+        print_children_nodes(json.clone(), child, level + 1);
+    }
+}
+
 fn json_to_plantuml_wbs(json: Vec<serde_json::Value>) -> String {
     // TODO: When using wbs, the contents should be output in a way using *.
     // Like this:
@@ -50,18 +68,11 @@ fn json_to_plantuml_wbs(json: Vec<serde_json::Value>) -> String {
     // ** B
     let mut plantuml = String::from("@startwbs\n");
 
-    let root_node = retrieve_root_node(json);
+    let root_node = retrieve_root_node(json.clone());
+
     println!("Root node: {}", root_node);
     plantuml.push_str(&format!("* {}\n", root_node));
-
-    // for record in json_to_parse {
-    //     let closure_record: ClosureRecord =
-    //         serde_json::from_value(record).expect("Unable to deserialize");
-    //     plantuml.push_str(&format!(
-    //         "{} -> {}\n",
-    //         closure_record.ancestor, closure_record.descendant
-    //     ));
-    // }
+    print_children_nodes(json.clone(), root_node, 1);
 
     plantuml.push_str("@endwbs\n");
     plantuml
