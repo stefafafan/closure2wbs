@@ -3,6 +3,9 @@
 closure2wbs is a cli tool for converting a list of closure tables to a WBS structure for PlantUML.
 Currently, the tool assumes a JSON file input, and outputs to file.
 
+> [!WARNING]
+> This cli tool is not thoroughly tested! 
+
 ## Installation
 Assuming you have `cargo` setup:
 
