@@ -70,8 +70,8 @@ fn closure_children_to_wbs_string(
     current: String,
     level: i32,
 ) -> String {
-    let mut wbsString;
-    wbsString = format!("{} {}\n", "*".repeat(level as usize), current);
+    let mut wbs_string;
+    wbs_string = format!("{} {}\n", "*".repeat(level as usize), current);
 
     let mut children: Vec<String> = Vec::new();
 
@@ -86,14 +86,14 @@ fn closure_children_to_wbs_string(
 
     // Recursively call the function for each direct child.
     for child in children {
-        wbsString.push_str(&closure_children_to_wbs_string(
+        wbs_string.push_str(&closure_children_to_wbs_string(
             json.clone(),
             child,
             level + 1,
         ));
     }
 
-    wbsString.to_string()
+    wbs_string.to_string()
 }
 
 // Converts the JSON to a PlantUML WBS string.
