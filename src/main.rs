@@ -25,6 +25,7 @@ struct Args {
 struct ClosureRecord {
     ancestor: String,
     descendant: String,
+    depth: i32,
 }
 
 // Retrieves the root node of the tree.
@@ -83,7 +84,10 @@ fn closure_children_to_wbs_string(
     for record in json.clone() {
         let closure_record: ClosureRecord =
             serde_json::from_value(record).expect("Unable to deserialize");
-        if closure_record.ancestor == current && closure_record.descendant != current {
+        if closure_record.ancestor == current
+            && closure_record.descendant != current
+            && closure_record.depth == 1
+        {
             children.push(closure_record.descendant);
         }
     }
