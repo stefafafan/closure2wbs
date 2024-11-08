@@ -1,54 +1,122 @@
 [
 	{
 		"ancestor": "A",
-		"descendant": "A"
+		"descendant": "A",
+		"depth": 0
 	},
 	{
 		"ancestor": "A",
-		"descendant": "B"
+		"descendant": "B",
+		"depth": 1
+	},
+	{
+		"ancestor": "A",
+		"descendant": "C",
+		"depth": 2
+	},
+	{
+		"ancestor": "A",
+		"descendant": "D",
+		"depth": 2
+	},
+	{
+		"ancestor": "A",
+		"descendant": "E",
+		"depth": 2
+	},
+	{
+		"ancestor": "A",
+		"descendant": "F",
+		"depth": 3
+	},
+	{
+		"ancestor": "A",
+		"descendant": "G",
+		"depth": 3
+	},
+	{
+		"ancestor": "A",
+		"descendant": "H",
+		"depth": 3
+	},
+	{
+		"ancestor": "A",
+		"descendant": "I",
+		"depth": 3
 	},
 	{
 		"ancestor": "B",
-		"descendant": "B"
+		"descendant": "B",
+		"depth": 0
 	},
 	{
 		"ancestor": "B",
-		"descendant": "C"
+		"descendant": "C",
+		"depth": 1
 	},
 	{
 		"ancestor": "B",
-		"descendant": "D"
+		"descendant": "D",
+		"depth": 1
 	},
 	{
 		"ancestor": "B",
-		"descendant": "E"
+		"descendant": "E",
+		"depth": 1
+	},
+	{
+		"ancestor": "B",
+		"descendant": "F",
+		"depth": 2
+	},
+	{
+		"ancestor": "B",
+		"descendant": "G",
+		"depth": 2
+	},
+	{
+		"ancestor": "B",
+		"descendant": "H",
+		"depth": 3
+	},
+	{
+		"ancestor": "B",
+		"descendant": "I",
+		"depth": 3
 	},
 	{
 		"ancestor": "C",
-		"descendant": "C"
+		"descendant": "C",
+		"depth": 0
 	},
 	{
 		"ancestor": "C",
-		"descendant": "F"
+		"descendant": "F",
+		"depth": 1
 	},
 	{
 		"ancestor": "C",
-		"descendant": "G"
+		"descendant": "G",
+		"depth": 1
 	},
 	{
 		"ancestor": "D",
-		"descendant": "D"
+		"descendant": "D",
+		"depth": 0
 	},
 	{
 		"ancestor": "D",
-		"descendant": "H"
+		"descendant": "H",
+		"depth": 1
 	},
 	{
 		"ancestor": "E",
-		"descendant": "E"
+		"descendant": "E",
+		"depth": 0
 	},
 	{
 		"ancestor": "E",
-		"descendant": "I"
+		"descendant": "I",
+		"depth": 1
 	}
 ]
