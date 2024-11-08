@@ -99,13 +99,31 @@ fn closure_children_to_wbs_string(
 // Converts the JSON to a PlantUML WBS string.
 fn json_to_plantuml_wbs(json: Vec<serde_json::Value>) -> String {
     let mut plantuml = String::from("@startwbs\n");
-    
+
     // Starting from the root node, recursively generate the WBS string.
     let root_node = retrieve_root_node(json.clone());
     plantuml.push_str(&closure_children_to_wbs_string(json.clone(), root_node, 1));
-    
+
     plantuml.push_str("@endwbs\n");
     plantuml
+}
+
+fn json_to_mermaid_wbs(json: Vec<serde_json::Value>) -> String {
+    let mut mermaid = String::from("flowchart TD\n");
+
+    for record in json {
+        let closure_record: ClosureRecord =
+            serde_json::from_value(record).expect("Unable to deserialize");
+        if closure_record.ancestor == closure_record.descendant {
+            continue;
+        }
+        mermaid.push_str(&format!(
+            "{} --> {}\n",
+            closure_record.ancestor, closure_record.descendant
+        ));
+    }
+
+    mermaid
 }
 
 fn main() {
@@ -113,7 +131,9 @@ fn main() {
     let json = fs::read_to_string(args.filename).expect("Unable to read file");
     let deserialized: Vec<serde_json::Value> =
         serde_json::from_str(&json).expect("Unable to deserialize");
-    let plantuml = json_to_plantuml_wbs(deserialized);
+    let plantuml = json_to_plantuml_wbs(deserialized.clone());
+    let mermaid = json_to_mermaid_wbs(deserialized.clone());
 
     fs::write(args.output, plantuml).expect("Unable to write file");
+    fs::write("closures_wbs.mmd", mermaid).expect("Unable to write file");
 }
