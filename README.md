@@ -50,6 +50,16 @@ Prepare a json file like following:
 	{
 		"ancestor": "A",
 		"descendant": "C",
+		"depth": 1
+	},
+	{
+		"ancestor": "A",
+		"descendant": "D",
+		"depth": 2
+	},
+	{
+		"ancestor": "A",
+		"descendant": "E",
 		"depth": 2
 	},
 	{
@@ -59,7 +69,12 @@ Prepare a json file like following:
 	},
 	{
 		"ancestor": "B",
-		"descendant": "C",
+		"descendant": "D",
+		"depth": 1
+	},
+	{
+		"ancestor": "B",
+		"descendant": "E",
 		"depth": 1
 	},
 	{
@@ -82,7 +97,9 @@ closure2wbs --input input.json --output out.puml --format plantuml
 @startwbs
 * A
 ** B
-*** C
+*** D
+*** E
+** C
 @endwbs
 ```
 
@@ -95,6 +112,7 @@ closure2wbs --input input.json --output out.mmd --format mermaid
 ```mermaid
 flowchart TD
 A --> B
+B --> D
+B --> E
 A --> C
-B --> C
 ```
