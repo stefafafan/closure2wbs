@@ -112,11 +112,7 @@ closure2wbs --input input.json --output out.mmd --format mermaid
 ```mermaid
 flowchart TD
 A --> B
-B --> C
-C --> F
-C --> G
 B --> D
-D --> H
 B --> E
-E --> I
+A --> C
 ```
