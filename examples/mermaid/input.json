@@ -57,12 +57,12 @@
 	{
 		"ancestor": "B",
 		"descendant": "D",
-		"depth": 2
+		"depth": 1
 	},
 	{
 		"ancestor": "B",
 		"descendant": "E",
-		"depth": 2
+		"depth": 1
 	},
 	{
 		"ancestor": "B",
