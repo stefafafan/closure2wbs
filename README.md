@@ -39,55 +39,33 @@ Prepare a json file like following:
 [
 	{
 		"ancestor": "A",
-		"descendant": "A"
+		"descendant": "A",
+		"depth": 0
 	},
 	{
 		"ancestor": "A",
-		"descendant": "B"
+		"descendant": "B",
+		"depth": 1
+	},
+	{
+		"ancestor": "A",
+		"descendant": "C",
+		"depth": 2
 	},
 	{
 		"ancestor": "B",
-		"descendant": "B"
+		"descendant": "B",
+		"depth": 0
 	},
 	{
 		"ancestor": "B",
-		"descendant": "C"
-	},
-	{
-		"ancestor": "B",
-		"descendant": "D"
-	},
-	{
-		"ancestor": "B",
-		"descendant": "E"
+		"descendant": "C",
+		"depth": 1
 	},
 	{
 		"ancestor": "C",
-		"descendant": "C"
-	},
-	{
-		"ancestor": "C",
-		"descendant": "F"
-	},
-	{
-		"ancestor": "C",
-		"descendant": "G"
-	},
-	{
-		"ancestor": "D",
-		"descendant": "D"
-	},
-	{
-		"ancestor": "D",
-		"descendant": "H"
-	},
-	{
-		"ancestor": "E",
-		"descendant": "E"
-	},
-	{
-		"ancestor": "E",
-		"descendant": "I"
+		"descendant": "C",
+		"depth": 0
 	}
 ]
 ```
@@ -105,12 +83,6 @@ closure2wbs --input input.json --output out.puml --format plantuml
 * A
 ** B
 *** C
-**** F
-**** G
-*** D
-**** H
-*** E
-**** I
 @endwbs
 ```
 
@@ -123,11 +95,6 @@ closure2wbs --input input.json --output out.mmd --format mermaid
 ```mermaid
 flowchart TD
 A --> B
+A --> C
 B --> C
-B --> D
-B --> E
-C --> F
-C --> G
-D --> H
-E --> I
 ```
