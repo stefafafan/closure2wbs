@@ -46,3 +46,34 @@ fn mermaid() {
 
     fs::remove_file("tests/fixtures/output.mmd").expect("Unable to remove output file");
 }
+
+#[test]
+fn file_not_found() {
+    let mut cmd = Command::cargo_bin("closure2wbs").unwrap();
+    cmd.arg("--input")
+        .arg("tests/fixtures/nonexistent.json")
+        .assert()
+        .failure();
+}
+
+#[test]
+fn invalid_format() {
+    let mut cmd = Command::cargo_bin("closure2wbs").unwrap();
+    cmd.arg("--input")
+        .arg("tests/fixtures/input.json")
+        .arg("--output")
+        .arg("tests/fixtures/output.puml")
+        .arg("--format")
+        .arg("invalid")
+        .assert()
+        .failure();
+}
+
+#[test]
+fn invalid_json() {
+    let mut cmd = Command::cargo_bin("closure2wbs").unwrap();
+    cmd.arg("--input")
+        .arg("tests/fixtures/invalid.json")
+        .assert()
+        .failure();
+}

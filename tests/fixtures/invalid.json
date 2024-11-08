@@ -1,0 +1,17 @@
+[
+	{
+		"ancestor": "A",
+		"descendant": "A",
+		"depth": 0
+	},
+	{
+		"AAAAAancestor": "A",
+		"descendant": "B",
+		"depth": 1
+	},
+	{
+		"ancestor": "B",
+		"descendant": "B",
+		"depth": 0
+	}
+]
