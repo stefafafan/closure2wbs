@@ -20,7 +20,7 @@ struct Args {
     output: String,
 }
 
-// XXX: Currently assumes that the input JSON is a list of objects with `ancestor` and `descendant` keys.
+// XXX: Currently assumes that the input JSON is a list of objects with `ancestor`, `descendant` and `depth` keys.
 #[derive(serde::Deserialize)]
 struct ClosureRecord {
     ancestor: String,
@@ -104,6 +104,7 @@ fn closure_children_to_plantuml_string(
     wbs_string.to_string()
 }
 
+// Similar to closure_children_to_plantuml_string, but generates a Mermaid string instead.
 fn closure_children_to_mermaid_string(json: Vec<serde_json::Value>, current: String) -> String {
     let mut mermaid_string: String = String::new();
 
