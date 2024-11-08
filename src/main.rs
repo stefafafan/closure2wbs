@@ -70,7 +70,7 @@ fn retrieve_root_node(json: Vec<serde_json::Value>) -> String {
 }
 
 // Recursively generates the WBS string from the JSON. The level is used to determine the number of asterisks to prepend to the node (used for printing the PlantUML WBS).
-fn closure_children_to_wbs_string(
+fn closure_children_to_plantuml_string(
     json: Vec<serde_json::Value>,
     current: String,
     level: i32,
@@ -94,7 +94,7 @@ fn closure_children_to_wbs_string(
 
     // Recursively call the function for each direct child.
     for child in children {
-        wbs_string.push_str(&closure_children_to_wbs_string(
+        wbs_string.push_str(&closure_children_to_plantuml_string(
             json.clone(),
             child,
             level + 1,
@@ -110,7 +110,11 @@ fn json_to_plantuml_wbs(json: Vec<serde_json::Value>) -> String {
 
     // Starting from the root node, recursively generate the WBS string.
     let root_node = retrieve_root_node(json.clone());
-    plantuml.push_str(&closure_children_to_wbs_string(json.clone(), root_node, 1));
+    plantuml.push_str(&closure_children_to_plantuml_string(
+        json.clone(),
+        root_node,
+        1,
+    ));
 
     plantuml.push_str("@endwbs\n");
     plantuml
