@@ -8,6 +8,34 @@
 		"descendant": "B"
 	},
 	{
+		"ancestor": "A",
+		"descendant": "C"
+	},
+	{
+		"ancestor": "A",
+		"descendant": "D"
+	},
+	{
+		"ancestor": "A",
+		"descendant": "E"
+	},
+	{
+		"ancestor": "A",
+		"descendant": "F"
+	},
+	{
+		"ancestor": "A",
+		"descendant": "G"
+	},
+	{
+		"ancestor": "A",
+		"descendant": "H"
+	},
+	{
+		"ancestor": "A",
+		"descendant": "I"
+	},
+	{
 		"ancestor": "B",
 		"descendant": "B"
 	},
@@ -22,6 +50,22 @@
 	{
 		"ancestor": "B",
 		"descendant": "E"
+	},
+	{
+		"ancestor": "B",
+		"descendant": "F"
+	},
+	{
+		"ancestor": "B",
+		"descendant": "G"
+	},
+	{
+		"ancestor": "B",
+		"descendant": "H"
+	},
+	{
+		"ancestor": "B",
+		"descendant": "I"
 	},
 	{
 		"ancestor": "C",
