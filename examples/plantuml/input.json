@@ -1,0 +1,54 @@
+[
+	{
+		"ancestor": "A",
+		"descendant": "A"
+	},
+	{
+		"ancestor": "A",
+		"descendant": "B"
+	},
+	{
+		"ancestor": "B",
+		"descendant": "B"
+	},
+	{
+		"ancestor": "B",
+		"descendant": "C"
+	},
+	{
+		"ancestor": "B",
+		"descendant": "D"
+	},
+	{
+		"ancestor": "B",
+		"descendant": "E"
+	},
+	{
+		"ancestor": "C",
+		"descendant": "C"
+	},
+	{
+		"ancestor": "C",
+		"descendant": "F"
+	},
+	{
+		"ancestor": "C",
+		"descendant": "G"
+	},
+	{
+		"ancestor": "D",
+		"descendant": "D"
+	},
+	{
+		"ancestor": "D",
+		"descendant": "H"
+	},
+	{
+		"ancestor": "E",
+		"descendant": "E"
+	},
+	{
+		"ancestor": "E",
+		"descendant": "I"
+	}
+]
