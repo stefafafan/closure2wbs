@@ -1,6 +1,6 @@
 [package]
 name = "closure2wbs"
-version = "0.2.0"
+version = "0.3.0"
 description = "A cli tool to convert closure tables to a WBS representation."
 categories = ["command-line-utilities"]
 edition = "2021"
