@@ -3,14 +3,18 @@ use std::fs;
 use clap::Parser;
 
 // XXX: Instead of using files, support reading from stdin and writing to stdout
+const DEFAULT_FORMAT: &str = "plantuml";
 const DEFAULT_FILENAME: &str = "closures.json";
 const DEFAULT_OUTPUT_FILENAME: &str = "closures_wbs.puml";
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
+    #[arg(short, long, default_value_t = DEFAULT_FORMAT.to_string())]
+    format: String,
+
     #[arg(short, long, default_value_t = DEFAULT_FILENAME.to_string())]
-    filename: String,
+    input: String,
 
     #[arg(short, long, default_value_t = DEFAULT_OUTPUT_FILENAME.to_string())]
     output: String,
@@ -128,12 +132,15 @@ fn json_to_mermaid_wbs(json: Vec<serde_json::Value>) -> String {
 
 fn main() {
     let args = Args::parse();
-    let json = fs::read_to_string(args.filename).expect("Unable to read file");
+    let json = fs::read_to_string(args.input).expect("Unable to read file");
     let deserialized: Vec<serde_json::Value> =
         serde_json::from_str(&json).expect("Unable to deserialize");
-    let plantuml = json_to_plantuml_wbs(deserialized.clone());
-    let mermaid = json_to_mermaid_wbs(deserialized.clone());
 
-    fs::write(args.output, plantuml).expect("Unable to write file");
-    fs::write("closures_wbs.mmd", mermaid).expect("Unable to write file");
+    let contents = match args.format.as_str() {
+        "plantuml" => json_to_plantuml_wbs(deserialized.clone()),
+        "mermaid" => json_to_mermaid_wbs(deserialized.clone()),
+        _ => panic!("Invalid format"),
+    };
+
+    fs::write(args.output, contents).expect("Unable to write file");
 }
