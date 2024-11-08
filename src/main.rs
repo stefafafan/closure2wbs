@@ -4,8 +4,8 @@ use clap::Parser;
 
 // XXX: Instead of using files, support reading from stdin and writing to stdout
 const DEFAULT_FORMAT: &str = "plantuml";
-const DEFAULT_FILENAME: &str = "closures.json";
-const DEFAULT_OUTPUT_FILENAME: &str = "closures_wbs.puml";
+const DEFAULT_FILENAME: &str = "input.json";
+const DEFAULT_OUTPUT_FILENAME: &str = "output.txt";
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
