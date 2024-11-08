@@ -104,6 +104,32 @@ fn closure_children_to_plantuml_string(
     wbs_string.to_string()
 }
 
+fn closure_children_to_mermaid_string(json: Vec<serde_json::Value>, current: String) -> String {
+    let mut mermaid_string: String = String::new();
+
+    let mut children: Vec<String> = Vec::new();
+
+    // Find all direct children of the current node.
+    for record in json.clone() {
+        let closure_record: ClosureRecord =
+            serde_json::from_value(record).expect("Unable to deserialize");
+        if closure_record.ancestor == current
+            && closure_record.descendant != current
+            && closure_record.depth == 1
+        {
+            children.push(closure_record.descendant);
+        }
+    }
+
+    // Recursively call the function for each direct child.
+    for child in children {
+        mermaid_string.push_str(&format!("{} --> {}\n", current, child));
+        mermaid_string.push_str(&closure_children_to_mermaid_string(json.clone(), child));
+    }
+
+    mermaid_string.to_string()
+}
+
 // Converts the JSON to a PlantUML WBS string.
 fn json_to_plantuml_wbs(json: Vec<serde_json::Value>) -> String {
     let mut plantuml = String::from("@startwbs\n");
@@ -123,17 +149,9 @@ fn json_to_plantuml_wbs(json: Vec<serde_json::Value>) -> String {
 fn json_to_mermaid_wbs(json: Vec<serde_json::Value>) -> String {
     let mut mermaid = String::from("flowchart TD\n");
 
-    for record in json {
-        let closure_record: ClosureRecord =
-            serde_json::from_value(record).expect("Unable to deserialize");
-        if closure_record.ancestor == closure_record.descendant {
-            continue;
-        }
-        mermaid.push_str(&format!(
-            "{} --> {}\n",
-            closure_record.ancestor, closure_record.descendant
-        ));
-    }
+    // Starting from the root node, recursively generate the WBS string.
+    let root_node = retrieve_root_node(json.clone());
+    mermaid.push_str(&closure_children_to_mermaid_string(json.clone(), root_node));
 
     mermaid
 }
